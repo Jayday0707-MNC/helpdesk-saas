@@ -4,7 +4,8 @@ const cors = require('cors');
 const pool = require('./db');
 
 const app = express();
-app.use(cors());
+app.set('trust proxy', 1);
+app.use(cors({ origin: process.env.CLIENT_URL ? process.env.CLIENT_URL.split(',') : true }));
 app.use(express.json());
 const authRoutes = require('./routes/auth');
 app.use('/api/auth', authRoutes);
